@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* font-weight:700; */
+    letter-spacing: 1px;
+    /* background-color:#121C2E ; */
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+img {
+    border: 0;
+}
+
+/* a:link,a:hover,a:active,a:visited{} */
+a {
+    text-decoration: none;
+    letter-spacing: 1px;
+    color:#888888;
+}

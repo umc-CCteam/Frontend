@@ -1,0 +1,26 @@
+.VerifyContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.VerifyButton {
+    font-weight: bold;
+    font-size: large;
+    color: black;
+    background-color: #C9CFDB;
+    border: none;
+    width: 30vw;
+    height: 5vh;
+    border-radius: 10px;
+}
+
+.instaImg {
+    width: auto;
+    height: 5vh;
+}
+
+
+.youtubeImg {
+    width: auto;
+    height: 5vh;
+}
