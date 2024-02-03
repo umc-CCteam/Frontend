@@ -8,7 +8,9 @@ import Creators from "./Pages/Creators";
 import CreatorDetail from "./Pages/CreatorDetail";
 import EditPr from "./Pages/EditPr";
 import ProfilePage from "./Pages/ProfilePage";
-import EditProfile from "./Pages/EditProfile";
+import EditProfilePage from "./Pages/EditProfilePage";
+import Community from "./Pages/Community";
+import Promentoring from "./Pages/Promentoring";
 
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/profile" element={<ProfilePage/>} />
-        <Route path="/editprofile" element={<EditProfile/>} />
+        <Route path="/editprofile" element={<EditProfilePage/>} />
+        <Route path="/community" element={<Community/>} />
+        <Route path="/promentoring" element={<Promentoring/>} />
 
 
         <Route path="/pr" element={<Creators/>}/>

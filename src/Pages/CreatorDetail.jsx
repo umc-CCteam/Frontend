@@ -103,7 +103,7 @@ const Sns = styled.div`
 
 const Separator = styled.hr`
   width: 70%;
-  height: 2px;
+  height: 1px;
   border: none;
   background-color: #fff;
   margin: 12vh auto;

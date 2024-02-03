@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 export default function ProfilePage() {
 
-  const EditProfileContainer = styled.div`
+  const ProfileContainer = styled.div`
   background-color: #121c2e;
   color: #fff;
   padding: 20px;
@@ -21,11 +21,11 @@ export default function ProfilePage() {
 `;
 
   return (
-    <EditProfileContainer>
+    <ProfileContainer>
     <Header />
     <h3>My 프로필</h3>
     <Profile />
     <Footer />
-    </EditProfileContainer>
+    </ProfileContainer>
   )
 }
