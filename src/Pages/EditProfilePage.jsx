@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import Footer from '../Components/Footer';
 import Header from '../Components/Header';
 import InstagramVerif from '../Components/InstagramVerif';
-import YoutubeVerif from '../Components/YoutubeVerif';
-import { updateProfile } from '../profileService';
-import { fetchProfile } from '../profileService';
+import YoutubeVerif from '../Components/YoutubeVerif';     
 import EditProfile from '../Components/EditProfile';
 
 

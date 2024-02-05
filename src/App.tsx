@@ -4,9 +4,9 @@ import Main from "./Pages/Main";
 import './reset.css'
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import Creators from "./Pages/Creators";
-import CreatorDetail from "./Pages/CreatorDetail";
-import EditPr from "./Pages/EditPr";
+import CreatorsPage from "./Pages/CreatorsPage";
+import CreatorDetailPage from "./Pages/CreatorDetailPage";
+import EditPrPage from "./Pages/EditPrPage";
 import ProfilePage from "./Pages/ProfilePage";
 import EditProfilePage from "./Pages/EditProfilePage";
 import Community from "./Pages/Community";
@@ -27,9 +27,9 @@ function App() {
         <Route path="/promentoring" element={<Promentoring/>} />
 
 
-        <Route path="/pr" element={<Creators/>}/>
-        <Route path="/pr/:name" element={<CreatorDetail/>}/>
-        <Route path="/editPr" element={<EditPr />} />
+        <Route path="/pr" element={<CreatorsPage/>}/>
+        <Route path="/pr/:name" element={<CreatorDetailPage/>}/>
+        <Route path="/editPr" element={<EditPrPage />} />
 
       </Routes>
     </BrowserRouter>

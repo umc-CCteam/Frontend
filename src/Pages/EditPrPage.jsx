@@ -12,6 +12,7 @@ import YoutubeVideoList from "../Components/YoutubeVideoList";
 import { dummy } from "../PrDummy";
 import YoutubeEmbed from "../Components/YoutubeEmbed";
 import { Link } from "react-router-dom";
+import EditPr from "../Components/EditPr";
 
 const CreatorContainer = styled.div`
   background-color: #121c2e;
@@ -80,7 +81,7 @@ const CardBody = styled(Card.Body)`
 `;
 
 const Sns = styled.div`
-  margin-top: 10px;
+  margin-top: 30px;
   display: flex;
 
   li {
@@ -101,10 +102,10 @@ const Sns = styled.div`
 
 const Separator = styled.hr`
   width: 70%;
-  height: 2px;
+  height: 1px;
   border: none;
   background-color: #fff;
-  margin: 12vh auto;
+  margin: 10vh auto;
 `;
 
 const PRBox = styled.div`
@@ -112,12 +113,15 @@ const PRBox = styled.div`
   text-align: center;
   margin-bottom: 10vh;
   margin:0 auto;
+  flex-direction:colunm;
 
   p {
+    min-width:"40vw"
+    height:30px;
     color: #fff;
-    margin-left: 10vw;
     font-size: 1.2rem;
     margin-bottom: 6vh;
+    margin-left:-1px;
   }
 `;
 
@@ -146,9 +150,17 @@ const EmbedContainer = styled.div`
 
 `;
 
+const Textarea = styled.input`
+  width: 100%;
+  height: 15vh;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
 const Input = styled.input`
   width: 100%;
-  height: 5vh;
+  height: 6vh;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -172,7 +184,7 @@ const Button = styled.button`
   }
 `;
 
-export default function EditPr() {
+export default function EditPrPage() {
   const [videoUrls, setVideoUrls] = useState([
     "https://www.youtube.com/watch?v=VIDEO_ID_1",
     "https://www.youtube.com/watch?v=VIDEO_ID_2",
@@ -213,55 +225,13 @@ export default function EditPr() {
     <CreatorContainer>
       <Header />
       <h3>크리에이터 PR</h3>
-
-      <StyledCard>
-        <CardImage variant="top" src="" alt="프로필사진" />
-        <CardBody>
-          <Card.Title style={{ fontSize: "2rem", color: "#fff" }}>
-            메리기타
-          </Card.Title>
-          <Card.Text style={{ color: "#fff" }}>
-            무슨무슨 광고경험이 있고,, 어쩌구저쩌구
-          </Card.Text>
-          <h4>카테고리 선택</h4>
-          <h4>Contact</h4>
-          <p>5622lsk@naver.com</p>
-
-          <h4>SNS</h4>
-          <Sns>
-            <li>
-              <img
-                src={process.env.PUBLIC_URL + "/images/youtube.png"}
-                alt="유튜브"
-              />
-              <span>7만</span>
-            </li>
-            <li>
-              <img
-                src={process.env.PUBLIC_URL + "/images/tictok.png"}
-                alt="틱톡"
-              />
-              <span>7만</span>
-            </li>
-            <li>
-              <img
-                src={process.env.PUBLIC_URL + "/images/insta.png"}
-                alt="인스타"
-              />
-              <span>6만</span>
-            </li>
-          </Sns>
-        </CardBody>
-      </StyledCard>
-
+      <EditPr />
       <Separator />
 
       <h3>PR</h3>
       <PRBox>
-        <p>
-          어떤 사람과 협업하고 싶은지, 회원님은 어떤 생각을 가지고 있는지 자유롭게 어필해주세요.
-        </p>
-        <Input
+        <p>어떤 사람과 협업하고 싶은지, 회원님은 어떤 생각을 가지고 있는지 자유롭게 어필해주세요.</p>
+        <Textarea
           type="text"
           name="introduction"
           value={pr.introduction}
@@ -292,7 +262,7 @@ export default function EditPr() {
         ))}
       </VideoContainer>
         <Button type="submit">
-          <Link to='/profile' style={{ color: '#fff' }}>확인</Link>
+          <Link to='/pr' style={{ color: '#fff' }}>확인</Link>
         </Button>
       <Footer />
     </CreatorContainer>

@@ -114,8 +114,7 @@ import '../main.css';
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import TypeIt from "typeit-react";
-// import item1 from "../images/item1.webp";
-// import item2 from "../images/item2.png";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Main() {

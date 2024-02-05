@@ -34,7 +34,7 @@ const StyledCard = styled(Card)`
 
     @media (max-width: 768px) {
         width: 240px;
-        height: 300px;
+        height: 330px;
     }
 `;
 
@@ -52,6 +52,7 @@ const CardImage = styled(Card.Img)`
 
 const CardBody = styled(Card.Body)`
     text-align: center;
+    padding:20px;
     background-color: #86909B;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
@@ -59,6 +60,7 @@ const CardBody = styled(Card.Body)`
     @media (max-width: 768px) {
         width: 250px;
         height: 220px;
+        padding:0px;
     }
 `;
 
@@ -79,32 +81,27 @@ const CardText = styled(Card.Text)`
     }
 `;
 
-const SnsContainer = styled.div`
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-`;
+const Sns = styled.div`
+  margin-top: 40px;
+//   display: flex;
 
-const SnsImage = styled.img`
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
+  li {
+    display:inline-block;
+  }
 
-    @media (max-width: 768px) {
-    width: 20px;
-    height: 20px; 
-    }
-`;
+  img {
+    width: 40px;
+    height: 35px;
+  }
 
-const SnsText = styled.span`
-    font-weight: bold;
-
-    @media (max-width: 768px) {
-    font-size:0.8rem;
-    }
+  span {
+    font-weight: 600;
+    color: #fff;
+  }
 `;
 
 export default function Creator(props) {
+    const { selectedOption } = props; //드롭다운버튼 옵션 받아오기
     const navigate = useNavigate();
 
     const onClickCreatorItem = () => {
@@ -118,20 +115,32 @@ export default function Creator(props) {
             <StyledCard>
                 <CardImage variant="top" src={props.photo} alt="프로필사진" />
                 <CardBody>
-                    <CardTitle>{props.name}</CardTitle>
-                    <CardText>{props.title}</CardText>
-                    <SnsContainer>
-                        <SnsImage src={process.env.PUBLIC_URL + '/images/youtube.png'} alt="유튜브" />
-                        <SnsText>{props.youtube}</SnsText>
-                    </SnsContainer>
-                    <SnsContainer>
-                        <SnsImage src={process.env.PUBLIC_URL + '/images/tictok.png'} alt="틱톡" />
-                        <SnsText>{props.tictok}</SnsText>
-                    </SnsContainer>
-                    <SnsContainer>
-                        <SnsImage src={process.env.PUBLIC_URL + '/images/insta.png'} alt="인스타" />
-                        <SnsText>{props.insta}</SnsText>
-                    </SnsContainer>
+                    <CardTitle style={{fontWeight:"700"}}>{props.name}</CardTitle>
+                    <CardText style={{fontWeight:"600", fontSize:"1.2rem",minHeight:"74px"}}>{props.title}</CardText>
+                    <Sns>
+                        <li>
+                        <img
+                            src={process.env.PUBLIC_URL + "/images/youtube.png"}
+                            alt="유튜브"
+                        />
+                        <span>{props.youtube}</span>
+                        </li>
+                        <li>
+                        <img
+                            src={process.env.PUBLIC_URL + "/images/tictok.png"}
+                            alt="틱톡"
+                        />
+                        <span>{props.tictok}</span>
+                        </li>
+                        <li>
+                        <img
+                            src={process.env.PUBLIC_URL + "/images/insta.png"}
+                            alt="인스타"
+                        />
+                        <span>{props.insta}</span>
+                        </li>
+                    </Sns>
+                    <h4>Selected Option: {selectedOption}</h4>
                 </CardBody>
             </StyledCard>
         </CardContainer>

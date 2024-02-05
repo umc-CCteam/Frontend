@@ -1,35 +1,29 @@
+/*eslint-disable*/
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Dropdown1 from './Dropdown1';
+import Creator from '../Components/Creator';
 
 const Sns = styled.div`
-  margin-top: 10px;
   display: flex;
+  margin-top:-20px;
 
   li {
     margin-right: 20px;
   }
 
   img {
-    width: 40px;
-    height: 35px;
+    width: 30px;
+    height: 25px;
     margin-right: 5px;
   }
 
   span {
     font-weight: 600;
     color: #fff;
-  }
-
-  @media (max-width: 768px) {
-    img {
-      width: 30px;
-      height: 25px;
-      margin-right: 5px;
-    }
-    width: 25px;
-    height: 25px;
   }
 `;
 
@@ -59,15 +53,18 @@ const Button = styled.button`
 
 const ProfileBox = styled.div`
   background-color: #7f95a5;
-  align-items: center;
   width: 60vw;
-  height: 25vh;
+  height: 45vh;
   border-radius: 25px;
   margin: 0 auto;
   display: flex;
-  padding: 20px;
   margin-top: 8vh;
-  margin-bottom: 40vh;
+  margin-bottom: 15vh;
+
+  h4{
+    font-size:0.7rem;
+    color:#fff;
+  }
 
   @media (max-width: 700px) {
     width: 500px;
@@ -77,21 +74,21 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileImg = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 24vw;
+  height: 45vh;
   background-color: #ccc;
-  margin: 30px;
-  font-size: 13rem;
-  font-weight:200;
+  font-size: 16rem;
+  color:#fff;
   justify-content: center;
   display: flex;
-  text-align:center;
   align-items: center;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  font-weight:200;
 
   &:hover {
     background-color: #B2B2B2;
   }
-
   @media (max-width: 700px) {
     width: 140px;
     height: 140px;
@@ -99,13 +96,14 @@ const ProfileImg = styled.div`
   }
 `;
 
+
 const ProfileDetail = styled.div`
   width: 600px;
-  height: 200px;
+  height: 45vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.6rem;
+  margin-left:3vw;
 
   h4 {
     font-size: 2.5rem;
@@ -124,13 +122,12 @@ const ProfileDetail = styled.div`
 `;
 
 const Input = styled.input`
-  width: 400px;
-  height: 30px;
-  margin-bottom: 10px;
+  width: 20vw;
+  height: 5vh;
+  margin-bottom: 2vh;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size:15px;
 
   @media (max-width: 700px) {
     width: 80%;
@@ -144,21 +141,24 @@ const FileInput = styled.input`
 `;
 
 
-export default function EditProfile() {
-  const [profile, setProfile] = useState({
-    name: '',
-    email: '',
-    comment: '',
+export default function EditPr() {
+  const [pr, setPr] = useState({
+    nickname: "",
+    comment: "",
+    email: "",
   });
+
   const [selectedFile, setSelectedFile] = useState(null);
+  const [category, setCategory] = useState(""); // 추가된 부분
+  const [selectedOption, setSelectedOption] = useState("default"); // 초기값은 드롭다운의 기본 옵션에 해당하는 값으로 설정
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedProfile = await axios.get('API_ENDPOINT/profile');
-        setProfile(fetchedProfile.data);
+        const fetchedProfile = await axios.get('API_ENDPOINT/pr');
+        setPr(fetchedProfile.data);
       } catch (error) {
         console.error('Error fetching profile data:', error);
       }
@@ -169,8 +169,8 @@ export default function EditProfile() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
+    setPr((prevPr) => ({
+      ...prevPr,
       [name]: value,
     }));
   };
@@ -180,27 +180,28 @@ export default function EditProfile() {
     setSelectedFile(file);
   };
 
-  const handleUpdateProfile = async () => {
+  const handleDropdownChange = (selectedValue) => {
+    setSelectedOption(selectedValue);
+  };
+
+
+  const handleUpdatePr = async () => {
     try {
       const formData = new FormData();
       formData.append('profileImage', selectedFile);
-      formData.append('name', profile.name);
-      formData.append('email', profile.email);
-      formData.append('comment', profile.comment);
+      formData.append('category', category); // 추가된 부분
 
-      const uploadImageResponse = await axios.post('API_ENDPOINT/upload', formData);
+      const uploadImageResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData);
 
-      const updatedProfile = {
-        ...profile,
+      const updatedPr = {
+        ...pr,
         profileImage: uploadImageResponse.data.filePath,
       };
 
-      // 프로필 수정 API 호출
-      const updateProfileResponse = await axios.put('API_ENDPOINT/profile', updatedProfile);
-      console.log('Profile updated successfully:', updateProfileResponse);
+      const updateProfileResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', updatedPr);
+      console.log('Pr updated successfully:', updateProfileResponse);
 
-      // 수정 완료 후 프로필 페이지로 이동
-      navigate('/profile');
+      navigate.push('/pr'); // 수정 완료되면 pr 페이지로 이동
     } catch (error) {
       console.error('Error updating profile:', error);
     }
@@ -219,42 +220,55 @@ export default function EditProfile() {
       <ProfileDetail>
         <Input
           type="text"
-          name="name"
-          value={profile.name}
+          name="nickname"
+          value={pr.nickname}
           onChange={handleInputChange}
-          placeholder="이름을 입력해주세요."
-        />
-        <Input
-          type="email"
-          name="email"
-          value={profile.email}
-          onChange={handleInputChange}
-          placeholder="이메일을 입력해주세요"
+          placeholder="활동명을 입력해주세요."
         />
         <Input
           type="text"
           name="comment"
-          value={profile.comment}
+          value={pr.comment}
           onChange={handleInputChange}
           placeholder="한줄 소개를 입력해주세요."
         />
-        <Sns>
-          <li>
-            <img src={process.env.PUBLIC_URL + '/images/youtube.png'} alt="유튜브" />
-          </li>
-          <li>
-            <img src={process.env.PUBLIC_URL + '/images/tictok.png'} alt="틱톡" />
-          </li>
-          <li>
-            <img src={process.env.PUBLIC_URL + '/images/insta.png'} alt="인스타" />
-          </li>
-        </Sns>
-      </ProfileDetail>
-      <Button onClick={handleUpdateProfile}>
-        <Link to="/profile" style={{ color: '#fff' }}>
-          확인
-        </Link>
-      </Button>
+        <Input
+          type="email"
+          name="email"
+          value={pr.email}
+          onChange={handleInputChange}
+          placeholder="이메일을 입력해주세요"
+        />
+
+        {/* 드롭다운버튼 */}
+          <h4 style={{color:"#fff",fontSize:"1.3rem"}}>Category</h4>
+          <Dropdown1 onChange={handleDropdownChange} />
+          {/* Creator 컴포넌트에 선택한 옵션 전달 */}
+          {/* <Creator selectedOption={selectedOption} /> */}
+        {/* sns */}
+          <h4 style={{color:"#fff",fontSize:"1.3rem",marginTop:"10px"}}>SNS</h4>
+          <Sns>
+            <li>
+              <img
+                src={process.env.PUBLIC_URL + "/images/youtube.png"}
+                alt="유튜브"
+              />
+            </li>
+            <li>
+              <img
+                src={process.env.PUBLIC_URL + "/images/tictok.png"}
+                alt="틱톡"
+              />
+            </li>
+            <li>
+              <img
+                src={process.env.PUBLIC_URL + "/images/insta.png"}
+                alt="인스타"
+              />
+              <span>6만</span>
+            </li>
+          </Sns>
+        </ProfileDetail>
     </ProfileBox>
-  );
+  )
 }
