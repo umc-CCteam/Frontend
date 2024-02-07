@@ -191,15 +191,15 @@ export default function EditPr() {
       formData.append('profileImage', selectedFile);
       formData.append('category', category); // 추가된 부분
 
-      const uploadImageResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData);
+      // const uploadImageResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData);
 
       const updatedPr = {
         ...pr,
         profileImage: uploadImageResponse.data.filePath,
       };
 
-      const updateProfileResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', updatedPr);
-      console.log('Pr updated successfully:', updateProfileResponse);
+      // const updateProfileResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', updatedPr);
+      // console.log('Pr updated successfully:', updateProfileResponse);
 
       navigate.push('/pr'); // 수정 완료되면 pr 페이지로 이동
     } catch (error) {
@@ -245,6 +245,7 @@ export default function EditPr() {
           <Dropdown1 onChange={handleDropdownChange} />
           {/* Creator 컴포넌트에 선택한 옵션 전달 */}
           {/* <Creator selectedOption={selectedOption} /> */}
+          
         {/* sns */}
           <h4 style={{color:"#fff",fontSize:"1.3rem",marginTop:"10px"}}>SNS</h4>
           <Sns>

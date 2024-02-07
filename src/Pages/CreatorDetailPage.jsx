@@ -13,6 +13,8 @@ import { dummy } from "../PrDummy";
 import YoutubeEmbed from "../Components/YoutubeEmbed";
 import CreatorDetail from "../Components/CreatorDetail";
 import { Card } from "react-bootstrap";  
+import { useState, useEffect} from "react";
+import axios from "axios";
 
 const CreatorContainer = styled.div`
   background-color: #121c2e;
@@ -53,18 +55,28 @@ const VideoContainer = styled.div`
 
 export default function CreatorDetailPage() {
   const { state } = useLocation();
+  const [post, setPost] = useState({}); 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://13.125.179.40:8080/creator-pr/1');
+        setPost(response.data.result); // 가져온 데이터를 상태 변수에 저장
+      } catch (error) {
+        console.error('데이터 가져오기 실패:', error);
+      }
+    };
+    fetchData();
+  },[]);
 
-    // state 또는 state.photo가 존재하는지 확인.
-    // if (!state || !state.photo) {
-    //     return <div>프로필 정보를 찾을 수 없습니다.</div>;
-    //   }
 
-  const sliderSettings = {
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-  };
+
+  // const sliderSettings = {
+  //   infinite: true,
+  //   slidesToShow: 3,
+  //   slidesToScroll: 1,
+  //   arrows: true,
+  // };
 
   return (
     <CreatorContainer>
@@ -76,18 +88,18 @@ export default function CreatorDetailPage() {
 
         <h3>PR</h3>
         <PRBox>
-        {/* <Card.Text style={{ color: "#fff" }}>{state.instroction}</Card.Text> */}
+        <Card.Text style={{ color: "#fff" }}>{post.content}</Card.Text>
       </PRBox>
 
-      <VideoContainer>
-        {/* <Slider {...sliderSettings}>
+      {/* <VideoContainer>
+        <Slider {...sliderSettings}>
           {state.youtubeVideos.map((videoId, index) => (
             <div key={index}>
               <YoutubeEmbed videoId={videoId} />
             </div>
           ))}
-        </Slider> */}
-      </VideoContainer>
+        </Slider>
+      </VideoContainer> */}
       <Footer />
     </CreatorContainer>
   );

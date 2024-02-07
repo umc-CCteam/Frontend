@@ -115,8 +115,8 @@ export default function Creator(props) {
             <StyledCard>
                 <CardImage variant="top" src={props.photo} alt="프로필사진" />
                 <CardBody>
-                    <CardTitle style={{fontWeight:"700"}}>{props.name}</CardTitle>
-                    <CardText style={{fontWeight:"600", fontSize:"1.2rem",minHeight:"74px"}}>{props.title}</CardText>
+                    <CardTitle style={{fontWeight:"700"}}>{props.nickname}</CardTitle>
+                    <CardText style={{fontWeight:"600", fontSize:"1.2rem",minHeight:"74px"}}>{props.comment}</CardText>
                     <Sns>
                         <li>
                         <img

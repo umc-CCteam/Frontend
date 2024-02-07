@@ -59,10 +59,11 @@ const InnerContainer = styled.div`
 `;
 
 interface CreatorProps {
-  memberId: string;
+  creatorPrId: string;
   nickname: string;
   comment: string;
-  category: string;
+  category1: string;
+  category2: string;
   photo: string;
   insta: string;
   tictok: string;
@@ -78,7 +79,7 @@ export default function CreatorsPage({ hasNav = true }: { hasNav?: boolean }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://13.125.179.40:8080/api');
+        const response = await axios.get('http://13.125.179.40:8080/creator-pr');
         if (Array.isArray(response.data)) {
           setProfiles(response.data);
         } else {
@@ -123,10 +124,10 @@ export default function CreatorsPage({ hasNav = true }: { hasNav?: boolean }) {
           profiles.map((profile, index) => (
             <Creator
               key={index}
-              memberId={profile.memberId}
+              memberId={profile.creatorPrId}
               nickname={profile.nickname}
               comment={profile.comment}
-              category={profile.category}
+              category={profile.category1}
               insta={profile.insta}
               tictok={profile.tictok}
               youtube={profile.youtube}
