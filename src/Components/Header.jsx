@@ -8,13 +8,8 @@ import Login from '../Pages/Login';
 
 const HeaderContainer = styled.div`
 `;
-const HeaderTopLink = styled(Link)`
-  padding: 1px;
-  margin: 2vh 6vh 0 0;
 
-`;
-
-const HeaderTop = styled.div`
+const HeaderTop = styled(Link)`
 width:100%;
 height:30px;
 
@@ -37,6 +32,7 @@ const HeaderBottom = styled.div`
   font-size: 1.2rem;
   font-weight:500;
   font-color:#FFF;
+  
   @media (max-width: 768px) {
     text-align:center;
 

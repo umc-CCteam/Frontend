@@ -55,7 +55,7 @@ const CardBody = styled(Card.Body)`
 `;
 
 const CategoryButton = styled.div`
-  background-color: #fb7b6a;
+  background-color: #6565;
   color: #fff;
   border-radius: 5px;
   padding: 8px 12px;
@@ -97,6 +97,7 @@ export default function CreatorDetail() {
           setPost(response.data.result); // 가져온 데이터를 상태 변수에 저장
         } catch (error) {
           console.error('데이터 가져오기 실패:', error);
+          alert('오류가 발생했습니다.다시 시도해주세요.');
         }
       };
       fetchData();
@@ -113,6 +114,7 @@ export default function CreatorDetail() {
           <Card.Text style={{ color: "#fff" }}>{post.comment}</Card.Text>
           <h4>Category</h4>
           <CategoryButton style={{fontWeight:"700"}}>#{post.category1}</CategoryButton>
+          <CategoryButton style={{fontWeight:"700",backgroundColor:"green"}}>#{post.category2}</CategoryButton>
           <h4>Contact</h4>
           <p>{post.email}</p>
 

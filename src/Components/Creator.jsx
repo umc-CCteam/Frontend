@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
-import styled from 'styled-components';
+import styled from 'styled-components'; 
 
 const CardContainer = styled.div`
     display: flex;
@@ -83,10 +83,18 @@ const CardText = styled(Card.Text)`
 
 const Sns = styled.div`
   margin-top: 40px;
-//   display: flex;
+  margin: 20px auto;
+  justify-content:center;
+  text-align:center;
+
 
   li {
+    width:60px;
+    height:100px;
+    margin-right:20px;
+    // background-color:green;
     display:inline-block;
+    text-align: center;
   }
 
   img {
@@ -99,10 +107,33 @@ const Sns = styled.div`
     color: #fff;
   }
 `;
+const CategoryButton = styled.div`
+  background-color: #FB7B6A;
+  color: #fff;
+  border-radius: 5px;
+  padding: 8px 12px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M'; // 백만 단위로 표시
+    }
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K'; // 천 단위로 표시
+    }
+    return num.toString(); // 그 외의 경우에는 그대로 표시
+}
+
 
 export default function Creator(props) {
-    const { selectedOption } = props; //드롭다운버튼 옵션 받아오기
     const navigate = useNavigate();
+
 
     const onClickCreatorItem = () => {
         navigate(`/pr/${props.name}`, {
@@ -117,30 +148,33 @@ export default function Creator(props) {
                 <CardBody>
                     <CardTitle style={{fontWeight:"700"}}>{props.nickname}</CardTitle>
                     <CardText style={{fontWeight:"600", fontSize:"1.2rem",minHeight:"74px"}}>{props.comment}</CardText>
+                    <CategoryButton style={{fontWeight:"700"}}>#{props.category1}</CategoryButton>
+          <CategoryButton style={{fontWeight:"700",backgroundColor:"green"}}>#{props.category2}</CategoryButton>
                     <Sns>
+                        <ul>
                         <li>
                         <img
                             src={process.env.PUBLIC_URL + "/images/youtube.png"}
                             alt="유튜브"
                         />
-                        <span>{props.youtube}</span>
+                        <span>{formatNumber(props.youtube)}</span>
                         </li>
                         <li>
                         <img
                             src={process.env.PUBLIC_URL + "/images/tictok.png"}
                             alt="틱톡"
                         />
-                        <span>{props.tictok}</span>
+                        <span>{formatNumber(props.tictok)}</span>
                         </li>
                         <li>
                         <img
                             src={process.env.PUBLIC_URL + "/images/insta.png"}
                             alt="인스타"
                         />
-                        <span>{props.insta}</span>
+                        <span>{formatNumber(props.insta)}</span>
                         </li>
+                        </ul>
                     </Sns>
-                    <h4>Selected Option: {selectedOption}</h4>
                 </CardBody>
             </StyledCard>
         </CardContainer>

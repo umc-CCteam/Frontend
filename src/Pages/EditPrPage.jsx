@@ -205,21 +205,22 @@ export default function EditPrPage() {
     setVideoUrls(newVideoUrls);
   };
 
-  const [pr, setPr] = useState({
-    name: "",
-    comment: "",
-    email: "",
-    introduction: "",
-    // 추가 필요한 프로필 속성들...
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPr((prevProfile) => ({
-      ...prevProfile,
-      [name]: value,
-    }));
+  const handleSubmit = async () => {
+    try {
+      // content와 videoUrls를 서버로 보냄
+      const response = await axios.post(
+        "http://13.125.179.40:8080/creator-pr/new/1",
+        {
+          content: content,
+          videoUrls: videoUrls,
+        }
+      );
+      console.log("Data sent successfully:", response.data.result);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
   };
+
 
   return (
     <CreatorContainer>
@@ -233,8 +234,8 @@ export default function EditPrPage() {
         <p>어떤 사람과 협업하고 싶은지, 회원님은 어떤 생각을 가지고 있는지 자유롭게 어필해주세요.</p>
         <Textarea
           type="text"
-          name="introduction"
-          value={pr.introduction}
+          name="content"
+          value={content}
           onChange={handleInputChange}
         />
       </PRBox>
@@ -261,7 +262,7 @@ export default function EditPrPage() {
           </EmbedContainer>
         ))}
       </VideoContainer>
-        <Button type="submit">
+        <Button onClick={handleSubmit}>
           <Link to='/pr' style={{ color: '#fff' }}>확인</Link>
         </Button>
       <Footer />

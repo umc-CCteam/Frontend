@@ -135,6 +135,21 @@ const Input = styled.input`
     padding: 5px;
   }
 `;
+const Input2 = styled.input`
+  width: 100px;
+  height: 5vh;
+  margin-bottom: 2vh;
+  padding: 5px;
+  font-size:15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  @media (max-width: 700px) {
+    width: 80%;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+`;
 
 const FileInput = styled.input`
   display: none;
@@ -146,26 +161,14 @@ export default function EditPr() {
     nickname: "",
     comment: "",
     email: "",
+    youtube: "",
+    tictok: "",
+    insta: "",
+    category1: "",
+    category2:""
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [category, setCategory] = useState(""); // 추가된 부분
-  const [selectedOption, setSelectedOption] = useState("default"); // 초기값은 드롭다운의 기본 옵션에 해당하는 값으로 설정
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedProfile = await axios.get('API_ENDPOINT/pr');
-        setPr(fetchedProfile.data);
-      } catch (error) {
-        console.error('Error fetching profile data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -181,29 +184,33 @@ export default function EditPr() {
   };
 
   const handleDropdownChange = (selectedValue) => {
-    setSelectedOption(selectedValue);
+    setPr((prevPr) => ({
+      ...prevPr,
+      category: selectedValue
+    }));
   };
 
-
-  const handleUpdatePr = async () => {
+  const handleSubmit = async () => {
     try {
       const formData = new FormData();
       formData.append('profileImage', selectedFile);
-      formData.append('category', category); // 추가된 부분
+      formData.append('nickname', pr.nickname);
+      formData.append('comment', pr.comment);
+      formData.append('email', pr.email);
+      formData.append('youtube', pr.youtube);
+      formData.append('tictok', pr.tictok);
+      formData.append('insta', pr.insta);
+      formData.append('category', pr.category1);
+      formData.append('category', pr.category2);
 
-      // const uploadImageResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData);
-
-      const updatedPr = {
-        ...pr,
-        profileImage: uploadImageResponse.data.filePath,
-      };
-
-      // const updateProfileResponse = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', updatedPr);
-      // console.log('Pr updated successfully:', updateProfileResponse);
-
-      navigate.push('/pr'); // 수정 완료되면 pr 페이지로 이동
+      const response = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Data sent successfully:', response.data.result);
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error('Error sending data:', error);
     }
   };
 
@@ -233,7 +240,7 @@ export default function EditPr() {
           placeholder="한줄 소개를 입력해주세요."
         />
         <Input
-          type="email"
+          type="text"
           name="email"
           value={pr.email}
           onChange={handleInputChange}
@@ -243,8 +250,6 @@ export default function EditPr() {
         {/* 드롭다운버튼 */}
           <h4 style={{color:"#fff",fontSize:"1.3rem"}}>Category</h4>
           <Dropdown1 onChange={handleDropdownChange} />
-          {/* Creator 컴포넌트에 선택한 옵션 전달 */}
-          {/* <Creator selectedOption={selectedOption} /> */}
           
         {/* sns */}
           <h4 style={{color:"#fff",fontSize:"1.3rem",marginTop:"10px"}}>SNS</h4>
@@ -254,19 +259,40 @@ export default function EditPr() {
                 src={process.env.PUBLIC_URL + "/images/youtube.png"}
                 alt="유튜브"
               />
+            <Input2
+              type="text"
+              name="yutube"
+              value={pr.youtube}
+              onChange={handleInputChange}
+              placeholder="yutube 구독자수"
+            />
             </li>
             <li>
               <img
                 src={process.env.PUBLIC_URL + "/images/tictok.png"}
                 alt="틱톡"
               />
+            <Input2
+              type="text"
+              name="tictok"
+              value={pr.tictok}
+              onChange={handleInputChange}
+              placeholder="tictok 팔로워수"
+            />
             </li>
+
             <li>
               <img
                 src={process.env.PUBLIC_URL + "/images/insta.png"}
                 alt="인스타"
               />
-              <span>6만</span>
+            <Input2
+              type="text"
+              name="insta"
+              value={pr.insta}
+              onChange={handleInputChange}
+              placeholder="insta 팔로워수"
+            />
             </li>
           </Sns>
         </ProfileDetail>

@@ -58,6 +58,14 @@ const InnerContainer = styled.div`
   }
 `;
 
+const Separator = styled.hr`
+  width: 85%;
+  height: 1px;
+  border: none;
+  background-color: #ccc;
+  margin: 1vh auto;
+`;
+
 interface CreatorProps {
   creatorPrId: string;
   nickname: string;
@@ -78,19 +86,20 @@ export default function CreatorsPage({ hasNav = true }: { hasNav?: boolean }) {
   
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get('http://13.125.179.40:8080/creator-pr');
-        if (Array.isArray(response.data)) {
-          setProfiles(response.data);
-        } else {
-          console.error('에러: 받은 데이터가 배열이 아님');
+        try {
+            const response = await axios.get('http://13.125.179.40:8080/creator-pr');
+            if (response.data.isSuccess) {
+                setProfiles(response.data.result); 
+            } else {
+                console.error('데이터 가져오기 실패:', response.data.message);
+            }
+        } catch (error) {
+            console.error('데이터 가져오기 오류:', error);
         }
-      } catch (error) {
-        console.error('프로필 가져오기 에러:', error);
-      }
     };
     fetchData();
-  }, []);
+}, []);
+
 
   return (
     <CreatorsContainer>
@@ -108,36 +117,34 @@ export default function CreatorsPage({ hasNav = true }: { hasNav?: boolean }) {
             onClick={() => setActiveTab('all')}
             className={activeTab === 'all' ? 'post__nav--active' : ''}
           >
-            ALL
+            ALL  
           </div>
           <div
             role="presentation"
             onClick={() => setActiveTab('my')}
             className={activeTab === 'my' ? 'post__nav--active' : ''}
           >
-            MY PR
+             MY PR
           </div>
         </div>
       )}
+      <Separator />
+
       <InnerContainer>
-        {Array.isArray(profiles) ? (
-          profiles.map((profile, index) => (
+          {profiles.map((profile, index) => (
             <Creator
               key={index}
-              memberId={profile.creatorPrId}
               nickname={profile.nickname}
               comment={profile.comment}
-              category={profile.category1}
+              category1={profile.category1}
+              category2={profile.category2}
               insta={profile.insta}
               tictok={profile.tictok}
               youtube={profile.youtube}
               photo={profile.photo}
               selectedOption={profile.selectedOption}
             />
-          ))
-        ) : (
-          <p>에러: 프로필을 표시할 수 없음</p>
-        )}
+          ))}
       </InnerContainer>
       <Footer />
     </CreatorsContainer>

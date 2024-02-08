@@ -55,13 +55,13 @@ const VideoContainer = styled.div`
 
 export default function CreatorDetailPage() {
   const { state } = useLocation();
-  const [post, setPost] = useState({}); 
+  const [post, setPost] = useState([]); 
   
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://13.125.179.40:8080/creator-pr/1');
-        setPost(response.data.result); // 가져온 데이터를 상태 변수에 저장
+        setPost(response.data.result); 
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);
       }
@@ -71,12 +71,12 @@ export default function CreatorDetailPage() {
 
 
 
-  // const sliderSettings = {
-  //   infinite: true,
-  //   slidesToShow: 3,
-  //   slidesToScroll: 1,
-  //   arrows: true,
-  // };
+  const sliderSettings = {
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+  };
 
   return (
     <CreatorContainer>
@@ -91,15 +91,17 @@ export default function CreatorDetailPage() {
         <Card.Text style={{ color: "#fff" }}>{post.content}</Card.Text>
       </PRBox>
 
-      {/* <VideoContainer>
+      <VideoContainer>
+      {post && post.youtubeVideos && (
         <Slider {...sliderSettings}>
-          {state.youtubeVideos.map((videoId, index) => (
+          {post.youtubeVideos.map((videoId, index) => (
             <div key={index}>
               <YoutubeEmbed videoId={videoId} />
             </div>
           ))}
         </Slider>
-      </VideoContainer> */}
+      )}
+      </VideoContainer>
       <Footer />
     </CreatorContainer>
   );
