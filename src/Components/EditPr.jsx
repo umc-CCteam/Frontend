@@ -200,8 +200,8 @@ export default function EditPr() {
       formData.append('youtube', pr.youtube);
       formData.append('tictok', pr.tictok);
       formData.append('insta', pr.insta);
-      formData.append('category', pr.category1);
-      formData.append('category', pr.category2);
+      formData.append('category1', pr.category1);
+      formData.append('category2', pr.category2);
 
       const response = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData, {
         headers: {

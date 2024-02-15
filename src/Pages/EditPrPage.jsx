@@ -9,10 +9,10 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import YoutubeVideoList from "../Components/YoutubeVideoList";
-import { dummy } from "../PrDummy";
 import YoutubeEmbed from "../Components/YoutubeEmbed";
 import { Link } from "react-router-dom";
 import EditPr from "../Components/EditPr";
+import axios from "axios";
 
 const CreatorContainer = styled.div`
   background-color: #121c2e;
@@ -35,71 +35,6 @@ const CreatorContainer = styled.div`
   }
 `;
 
-const StyledCard = styled.div`
-  display: flex;
-  border-radius: 25px;
-  width: 100%;
-  width: 60vw;
-  height: 30rem;
-  background-color: rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
-  margin-top: 10vh;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 10px 10px 10px 10px rgba(20, 40, 80, 100);
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const CardImage = styled(Card.Img)`
-  width: 27.5rem;
-  height: 30rem;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-`;
-
-const CardBody = styled(Card.Body)`
-  text-align: left;
-  background-color: #86909b;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-  padding: 20px;
-
-  h4 {
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-
-  p {
-    color: #fff;
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-`;
-
-const Sns = styled.div`
-  margin-top: 30px;
-  display: flex;
-
-  li {
-    margin-right: 20px;
-  }
-
-  img {
-    width: 40px;
-    height: 35px;
-    margin-right: 5px;
-  }
-
-  span {
-    font-weight: 600;
-    color: #fff;
-  }
-`;
-
 const Separator = styled.hr`
   width: 70%;
   height: 1px;
@@ -113,7 +48,7 @@ const PRBox = styled.div`
   text-align: center;
   margin-bottom: 10vh;
   margin:0 auto;
-  flex-direction:colunm;
+  flex-direction:column;
 
   p {
     min-width:"40vw"
@@ -150,7 +85,7 @@ const EmbedContainer = styled.div`
 
 `;
 
-const Textarea = styled.input`
+const Textarea = styled.textarea`
   width: 100%;
   height: 15vh;
   margin-bottom: 20px;
@@ -185,6 +120,7 @@ const Button = styled.button`
 `;
 
 export default function EditPrPage() {
+  const [content, setContent] = useState("");
   const [videoUrls, setVideoUrls] = useState([
     "https://www.youtube.com/watch?v=VIDEO_ID_1",
     "https://www.youtube.com/watch?v=VIDEO_ID_2",
@@ -203,6 +139,10 @@ export default function EditPrPage() {
     const newVideoUrls = [...videoUrls];
     newVideoUrls[index] = `https://www.youtube.com/watch?v=${videoId}`;
     setVideoUrls(newVideoUrls);
+  };
+
+  const handleInputChange = (e) => {
+    setContent(e.target.value);
   };
 
   const handleSubmit = async () => {
@@ -265,6 +205,12 @@ export default function EditPrPage() {
         <Button onClick={handleSubmit}>
           <Link to='/pr' style={{ color: '#fff' }}>확인</Link>
         </Button>
+        <button className="p-[3px] relative">
+  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+  <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
+    Lit up borders
+  </div>
+</button>
       <Footer />
     </CreatorContainer>
   );
