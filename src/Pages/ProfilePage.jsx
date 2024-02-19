@@ -3,7 +3,6 @@ import Header from '../Components/Header'
 import Footer from '../Components/Footer'
 import Profile from '../Components/Profile'
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
 import CreatorDetail from '../Components/CreatorDetail';
 
 export default function ProfilePage() {

@@ -93,7 +93,7 @@ export default function CreatorDetail() {
    
       const fetchData = async () => {
         try {
-          const response = await axios.get('http://13.125.179.40:8080/creator-pr/1');
+          const response = await axios.get('');
           setPost(response.data.result); // 가져온 데이터를 상태 변수에 저장
         } catch (error) {
           console.error('데이터 가져오기 실패:', error);

@@ -149,7 +149,7 @@ export default function EditPrPage() {
     try {
       // content와 videoUrls를 서버로 보냄
       const response = await axios.post(
-        "http://13.125.179.40:8080/creator-pr/new/1",
+        "",
         {
           content: content,
           videoUrls: videoUrls,
@@ -205,12 +205,6 @@ export default function EditPrPage() {
         <Button onClick={handleSubmit}>
           <Link to='/pr' style={{ color: '#fff' }}>확인</Link>
         </Button>
-        <button className="p-[3px] relative">
-  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-  <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
-    Lit up borders
-  </div>
-</button>
       <Footer />
     </CreatorContainer>
   );

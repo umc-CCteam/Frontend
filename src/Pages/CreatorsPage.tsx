@@ -87,7 +87,7 @@ export default function CreatorsPage({ hasNav = true }: { hasNav?: boolean }) {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://13.125.179.40:8080/creator-pr');
+            const response = await axios.get('');
             if (response.data.isSuccess) {
                 setProfiles(response.data.result); 
             } else {

@@ -60,7 +60,7 @@ export default function CreatorDetailPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://13.125.179.40:8080/creator-pr/1');
+        const response = await axios.get('');
         setPost(response.data.result); 
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);

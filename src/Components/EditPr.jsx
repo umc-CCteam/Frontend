@@ -203,7 +203,7 @@ export default function EditPr() {
       formData.append('category1', pr.category1);
       formData.append('category2', pr.category2);
 
-      const response = await axios.post('http://13.125.179.40:8080/creator-pr/new/1', formData, {
+      const response = await axios.post('', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
